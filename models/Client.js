@@ -30,3 +30,7 @@ const userSchema = new mongoose.Schema({
     required: true
   }
 })
+
+const Client = mongoose.model('Client', clientSchema);
+
+export default Client;

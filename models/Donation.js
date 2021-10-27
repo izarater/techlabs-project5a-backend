@@ -34,3 +34,7 @@ const userSchema = new mongoose.Schema({
     required: true
   }
 })
+
+const Donation = mongoose.model('Donation', donationSchema);
+
+export default Donation;

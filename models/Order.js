@@ -14,3 +14,7 @@ const userSchema = new mongoose.Schema({
     required: true
   }
 })
+
+const Order = mongoose.model('Order', orderSchema);
+
+export default Order;

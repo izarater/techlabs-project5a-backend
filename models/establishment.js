@@ -34,3 +34,7 @@ const userSchema = new mongoose.Schema({
     required: true
   }
 })
+
+const Establishment = mongoose.model('Establishment', establishmentSchema);
+
+export default Establishment;

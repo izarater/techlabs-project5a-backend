@@ -46,3 +46,7 @@ const userSchema = new mongoose.Schema({
     required: true
   }
 })
+
+const Beneficiary = mongoose.model('Beneficiary', beneficiarySchema);
+
+export default Beneficiary;
