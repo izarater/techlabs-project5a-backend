@@ -1,10 +1,6 @@
 const mongoose = require("mongoose");
 
-const userSchema = new mongoose.Schema({
-  id: {
-    type: Number,
-    required: true
-  },
+const citySchema = new mongoose.Schema({
   name: {
     type: String,
     required: true
@@ -14,3 +10,7 @@ const userSchema = new mongoose.Schema({
     required: true
   }
 })
+
+const City = mongoose.model('City', citySchema);
+
+export default City;

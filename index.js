@@ -1,16 +1,44 @@
 const express = require("express");
-const auth = require('./routes/auth');
-const user = require('./routes/user');
+const morgan = require("morgan");
+const mongoose = require("mongoose");
+const ROLES = require("./utils/roles");
+const User = require( "./models/Users" );
+
+
 const app = express();
 
-async function main(){
+function main(){
   //body parser
   app.use(express.json()); 
-  auth(app);
-  user(app);
+  app.use(morgan('tiny'))
+  // app.use(ROLES);
+  //
+  const username = 'izar';
+  const password = 'nS7Nk1MldNdcd1YM';
+  const database = 'TechLabs-Project';
+  const uri = `mongodb+srv://${username}:${password}@cluster0.d3bkk.mongodb.net/${database}?retryWrites=true&w=majority`;
+  const options = { useNewUrlParser: true, useUnifiedTopology: true }
 
-  await app.listen(4000);
-  console.log(`Listening http://localhost:${4000}`);
+  mongoose.connect(uri, options).then(
+    () => { 
+      console.log('Conectado a DB') 
+      // User.create({
+      //   // document: 1000831234,
+      //   username: 'Lalo',
+      //   password: 'lambda',
+      // })
+    },
+    err => { console.log(err) }
+  )
+  
+  // console.log('hola mundo')
+
+  app.set('puerto', process.env.PORT || 3000)
+
+  app.listen(app.get('puerto'), () => {
+    console.log(`Listening http://localhost:${app.get('puerto')}`);
+  });
+  
 }
 
 main();
