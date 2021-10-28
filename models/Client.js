@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const userSchema = new mongoose.Schema({
+const clientSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true
@@ -33,4 +33,4 @@ const userSchema = new mongoose.Schema({
 
 const Client = mongoose.model('Client', clientSchema);
 
-export default Client;
+module.exports = Client;

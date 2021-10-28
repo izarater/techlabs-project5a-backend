@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const userSchema = new mongoose.Schema({
+const beneficiarySchema = new mongoose.Schema({
   name: {
     type: String,
     required: true
@@ -49,4 +49,4 @@ const userSchema = new mongoose.Schema({
 
 const Beneficiary = mongoose.model('Beneficiary', beneficiarySchema);
 
-export default Beneficiary;
+module.exports = Beneficiary;

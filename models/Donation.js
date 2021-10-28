@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const userSchema = new mongoose.Schema({
+const donationSchema = new mongoose.Schema({
   establishment_id: {
     type: Number,
     required: true
@@ -37,4 +37,4 @@ const userSchema = new mongoose.Schema({
 
 const Donation = mongoose.model('Donation', donationSchema);
 
-export default Donation;
+module.exports = Donation;

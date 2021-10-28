@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const userSchema = new mongoose.Schema({
+const establishmentSchema = new mongoose.Schema({
   establishment_name: {
     type: String,
     required: true
@@ -37,4 +37,4 @@ const userSchema = new mongoose.Schema({
 
 const Establishment = mongoose.model('Establishment', establishmentSchema);
 
-export default Establishment;
+module.exports = Establishment;

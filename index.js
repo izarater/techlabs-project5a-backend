@@ -3,6 +3,14 @@ const morgan = require("morgan");
 const mongoose = require("mongoose");
 const ROLES = require("./utils/roles");
 const User = require( "./models/Users" );
+const Beneficiary = require( "./models/Beneficiary" );
+const City = require( "./models/City" );
+const Client = require( "./models/Client" );
+const Country = require( "./models/Country" );
+const Donation = require( "./models/Donation" );
+const Establishment = require( "./models/Establishment" );
+//const Order = require( "./models/Order" );
+//const Product = require( "./models/Product" );
 
 
 const app = express();
@@ -27,6 +35,18 @@ function main(){
       //   username: 'Lalo',
       //   password: 'lambda',
       // })
+      /*
+         City.create({
+           code: 1,
+           name: 'Bogotá',
+           country_code: 57,
+           country_id: "61792b8553a58b2c8357fe4f"
+         })
+         Country.create({
+          code: 57,
+          name: 'Colombia',
+          country_code: 57,
+        })*/
     },
     err => { console.log(err) }
   )

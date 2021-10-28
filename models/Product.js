@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const userSchema = new mongoose.Schema({
+const productSchema = new mongoose.Schema({
   establishment_id: {
     type: Number,
     required: true
