@@ -13,10 +13,6 @@ const beneficiarySchema = new mongoose.Schema({
     type: Number,
     required: true
   },
-  id: {
-    type: Number,
-    required: true
-  },
   gender: {
     type: String,
     required: true
@@ -35,7 +31,7 @@ const beneficiarySchema = new mongoose.Schema({
   },
   birth_date: {
     type: Date,
-    required: true
+    required: true  
   },
   birth_country: {
     type: String,
@@ -47,6 +43,5 @@ const beneficiarySchema = new mongoose.Schema({
   }
 })
 
-const Beneficiary = mongoose.model('Beneficiary', beneficiarySchema);
-
-module.exports = Beneficiary;
+// exporting the schema as a mongoose model
+module.exports = mongoose.model('Beneficiary', beneficiarySchema);

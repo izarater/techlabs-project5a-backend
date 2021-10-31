@@ -5,29 +5,30 @@ const establishmentSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  establishment_type: {
+  description: {
     type: String,
     required: true
   },
-  establishment_id: {
-    type: Number,
-    required: true
+  establishment_type: {
+    type: String,
+    // required: true
   },
   city_id: {
-    type: Number,
-    required: true
+    type: mongoose.Schema.Types.ObjectId,
+    // required: true
+    ref: 'City'
   },
   district: {
     type: String,
-    required: true
+    // required: true
   },
   schedule: {
     type: Date,
-    required: true
+    // required: true
   },
   qualification: {
     type: Number,
-    required: true
+    // required: true
   },
   phone: {
     type: Number,
@@ -35,6 +36,4 @@ const establishmentSchema = new mongoose.Schema({
   }
 })
 
-const Establishment = mongoose.model('Establishment', establishmentSchema);
-
-module.exports = Establishment;
+module.exports = mongoose.model('Establishment', establishmentSchema);

@@ -7,26 +7,20 @@ const productSchema = new mongoose.Schema({
   },
   product_type: {
     type: String,
-    required: true
+    // required: true
   },
-  product_id: {
-    type: Number,
-    required: true
-  },
-  order_id: {
-    type: Number,
-    required: true
-  },
+  // order_id: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   required: true
+  // },
   description: {
     type: String,
-    required: true
+    // required: true
   },
   elaboration_date: {
     type: String,
-    required: true
+    // required: true
   }
 })
 
-const Product = mongoose.model('Product', productSchema);
-
-export default Product;
+module.exports = mongoose.model('Product', productSchema)
