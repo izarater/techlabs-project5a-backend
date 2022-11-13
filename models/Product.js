@@ -1,12 +1,22 @@
 const mongoose = require("mongoose");
+const types = require("../utils/Types")
 
 const productSchema = new mongoose.Schema({
   establishment_id: {
-    type: Number,
+    type: mongoose.Schema.Types.ObjectId,
     required: true
   },
-  product_type: {
+  name:{
     type: String,
+    required: [true, 'Es necesario proporcionar el nombre del producto']
+  },
+  quantity:{
+    type: String,
+    // required: true
+  },
+  tags: {
+    type: [String],
+    enum: types
     // required: true
   },
   // order_id: {
@@ -20,7 +30,16 @@ const productSchema = new mongoose.Schema({
   elaboration_date: {
     type: String,
     // required: true
-  }
+  },
+  src: {
+    type: String,
+    // required: true
+  },
+  alt: {
+    type: String,
+    // required: true
+  },
+  
 })
 
 module.exports = mongoose.model('Product', productSchema)

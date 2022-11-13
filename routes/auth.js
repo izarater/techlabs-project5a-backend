@@ -1,83 +1,240 @@
-const express = require("express");
+const express = require('express');
 
-const User = require('../models/Users');
+
 const auth = require('../middlewares/auth-user/auth')
-// const UsersService = require("../services/user");
-const bcrypt = require("bcrypt");
-// const { check, validationResult } = require("express-validator");
+const roles = require('../middlewares/auth-user/roles')
 
-// the router will receive the petitions from the user part
+const controller = require('../controllers/authentication');
+const res = require( "express/lib/response" );
+
 const router = express.Router();
 
 // body for return information, its just an idea, it could be improve
 function returnBody(isCompleted, data, error){
   this.isCompleted = isCompleted;
   this.data = data;
-  this.error = error
+  this.error = error 
 }
 
 
-router.post('/register', async (req, res) => {
-  const {
-    document,
-    name,
-    surname,
+
+
+
+router.post('/signup/:type', async (req, res) => {
+  // funcionalidad vieja
+  // const {
+  //   document,
+  //   name,
+  //   surname,
+  //   username,
+  //   email,
+  //   rol,
+  //   password
+  // } = req.body;
+  
+
+  // try {
+  //   // throw new Error('Exception message');
+  //   await User.exists({ username }, (error, result) => {
+  //     // managing error
+  //     if (error) {
+  //       res.status(400)
+  //       res.send(new returnBody(false, {}, `${error}`))
+  //     } else {
+  //       if (result) {
+  //         res.status(409)
+  //         res.send(new returnBody(false, { isRepeated: true}, `The user already exists`))
+  //       } else {
+  //         // creating the user from the body data
+  //         let user = new User({
+  //           document,
+  //           name,
+  //           surname,
+  //           username, 
+  //           email,
+  //           rol,
+  //           password
+  //         });
+  //         // saving the data in mongoose ant managing the possible errors
+  //         user.save((err) => {
+  //           if(err){
+  //             res.status(400)
+  //             res.send(new returnBody(false, {}, `${err}`))
+  //           }else{
+  //             // save was completed succesfully
+  //             user.password = undefined;
+  //             res.status(200)
+  //             res.send(new returnBody(true, user, {}))
+  //           }
+  //         });  
+  //       }
+  //     }
+  //   }).clone()
+  // } catch (error) {
+  //   res.status(400)
+  //   res.send(new returnBody(false, {}, `${error}`))
+  // } 
+
+  // nueva funcionalidad
+  const type = req.params.type
+  
+
+  const { // data para creacion del usuario
+    identification,
     username,
     email,
-    rol,
+    phone, 
     password
-  } = req.body;
-
+  } = req.body
+  
+  
+  // validando el tipo de usuairo a ingresar
   try {
-    // throw new Error('Exception message');
-    User.exists({ username }, (error, result) => {
-      // managing error
-      if (error) {
-        res.status(400)
-        res.send(new returnBody(false, {}, `${error}`))
-      } else {
-        if (result) {
-          res.status(409)
-          res.send(new returnBody(false, { isRepeated: true}, `The user already exists`))
-        } else {
-          // creating the user from the body data
-          let user = new User({
-            document,
-            name,
-            surname,
-            username,
-            email,
-            rol,
-            password
-          });
-          // saving the data in mongoose ant managing the possible errors
-          user.save((err) => {
-            if(err){
-              res.status(400)
-              res.send(new returnBody(false, {}, `${err}`))
-            }else{
-              // save was completed succesfully
-              user.password = undefined;
-              res.status(200)
-              res.send(new returnBody(true, user, {}))
-            }
-          });  
+    
+    if(type === roles.BENEFICIARY){
+      const { // data para creacion de establecimiento
+        name,
+        surname,
+        gender,
+        address,
+        birth_date,
+        birth_country,
+        entailment_date
+      } = req.body
+
+      result = await controller.SignUpBeneficiary({
+        identification,
+        username,
+        email,
+        phone, 
+        password,
+        name,
+        surname,
+        gender,
+        address,
+        birth_date,
+        birth_country,
+        entailment_date
+      }, (error, result) => {
+        if(error){
+          res.status(400)
+          res.send(new returnBody(false, '', error))
+        }else {
+          res.status(200)
+          res.send(new returnBody(true, result, undefined))
         }
-      }
-    })
-  } catch (error) {
+      })
+    }else if(type === roles.CLIENT){
+      const { // data para creacion de establecimiento
+        name,
+        surname,
+        qualification,
+        address
+      } = req.body
+
+      result = await controller.SignUpClient({
+        identification,
+        username,
+        email,
+        phone, 
+        password,
+        name,
+        surname,
+        qualification,
+        address
+      }, (error, result) => {
+        if(error){
+          res.status(400)
+          res.send(new returnBody(false, '', error))
+        }else {
+          res.status(200)
+          res.send(new returnBody(true, result, undefined))
+        }
+      })
+
+      // result = await controller.SignUpEstablishment({
+      //   identification,
+      //   username,
+      //   email,
+      //   phone, 
+      //   password,
+      //   establishment_name,
+      //   establishment_type,
+      //   city_id,
+      //   district,
+      //   schedule,
+      //   qualification
+      // },(error, result) => {
+      //   if(error){
+      //     res.status(400)
+      //     res.send(new returnBody(false, '', error))
+      //   }else {
+      //     res.status(200)
+      //     res.send(new returnBody(true, result, undefined))
+      //   }
+      // })
+
+
+      
+    }else if(type === roles.ESTABLISHMENT){
+      const { // data para creacion de establecimiento
+        establishment_name,
+        establishment_type,
+        city_id,
+        district,
+        schedule,
+        qualification
+      } = req.body
+
+
+      result = await controller.SignUpEstablishment({
+        identification,
+        username,
+        email,
+        phone, 
+        password,
+        establishment_name,
+        establishment_type,
+        city_id,
+        district,
+        schedule,
+        qualification
+      },(error, result) => {
+        if(error){
+          res.status(400)
+          res.send(new returnBody(false, '', error))
+        }else {
+          res.status(200)
+          res.send(new returnBody(true, result, undefined))
+        }
+      })
+    }else{
+      res.status(400)
+      return res.send(new returnBody(false, 'No se ingreso un tipo de usuario valido', undefined))
+    }
+    res.status(200)
+    
+  }catch(error){
     res.status(400)
-    res.send(new returnBody(false, {}, `${error}`))
+    res.send(new returnBody(false, 'Hubo un error con los datos ingresados', `${error}`))
   }
+  
 })
 
-
-router.post('/login', auth.setUser , async (req, res) => {
-  console.log('we are here')
+router.get('/list-roles', async (req, res) => {
+  res.status(200)
+  res.send(roles)
 })
 
+router.post('/signin', auth.setUser , async (req, res) => {
+  res.status(200)
+  res.send({ userData: req.userData })
+})
 
-
+router.post('/changePassword',auth.setUser, auth.changePassword, async (req, res) => {
+  res.status(200)
+  res.send({ changed: true, data: req.userData})
+})
 
 
 // function authApi(app) {

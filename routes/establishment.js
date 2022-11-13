@@ -14,7 +14,7 @@ router.get('', async (req, res ) => {
         res.send({completed: false, message: `it happened an unexpected error: ${error}`})
       }else{
         res.status(200)
-        res.send({completed: true, data: result})
+        res.send(result)
       }
     }).clone();
   } catch (error) {
@@ -26,7 +26,6 @@ router.get('', async (req, res ) => {
 router.post('', async (req, res) => {
   const {
     establishment_name,
-    description,
     establishment_type,
     city_id,
     district,
@@ -38,7 +37,6 @@ router.post('', async (req, res) => {
     // creating the new Establishment model
     const newEstablishment = new Establishment({
       establishment_name,
-      description,
       establishment_type,
       city_id,
       district,

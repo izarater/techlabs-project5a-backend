@@ -9,37 +9,26 @@ const beneficiarySchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  id_type: {
-    type: Number,
-    required: true
-  },
   gender: {
     type: String,
-    required: true
+    // required: true
   },
-  phone: {
-    type: Number,
-    required: true
-  },
-  email: {
+  address: {
     type: String,
-    required: true
-  },
-  addresss: {
-    type: String,
-    required: true
+    // required: true
   },
   birth_date: {
     type: Date,
-    required: true  
+    // required: true  
   },
   birth_country: {
     type: String,
-    required: true
+    // required: true
   },
   entailment_date: {
     type: Date,
-    required: true
+    default: Date.now
+    // required: true
   }
 })
 

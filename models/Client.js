@@ -6,24 +6,16 @@ const clientSchema = new mongoose.Schema({
     required: true
   },
   surname: {
-    type: String,
-    required: true
-  },
-  cellphone: {
-    type: Number,
+    type: String, 
     required: true
   },
   address: {
     type: String,
-    required: true
-  },
-  email: {
-    type: String,
-    required: true
+    // required: true
   },
   qualification: {
     type: Number,
-    required: true
+    default: 0,
   }
 })
 
